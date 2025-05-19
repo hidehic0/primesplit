@@ -25,3 +25,5 @@ go.work.sum
 .env
 
 primesplit
+# Added by goreleaser init:
+dist/
