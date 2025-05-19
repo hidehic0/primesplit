@@ -15,6 +15,7 @@ func exit() {
 }
 
 func main() {
+	c := color.New(color.Bold, color.FgBlue)
 	if len(os.Args) != 2 {
 		exit()
 	}
@@ -31,7 +32,8 @@ func main() {
 	}
 
 	if n == 1 {
-		fmt.Println("1: 1")
+		fmt.Print("1: ")
+		c.Println("1")
 		return
 	}
 
@@ -59,7 +61,6 @@ func main() {
 	var ind = 0
 
 	fmt.Print(n, ": ")
-	c := color.New(color.Bold, color.FgBlue)
 
 	for ind < len(res) {
 		if res[ind][1] == 1 {
