@@ -2,22 +2,32 @@ package main
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"os"
 	"strconv"
 )
 
+func exit() {
+	fmt.Print("Usage: ")
+	c := color.New(color.FgRed, color.Bold)
+	c.Println("primesplit <number of 0 more>")
+	os.Exit(1)
+}
+
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Println("Usage: primesplit <number>")
-		return
+		exit()
 	}
 
 	var n int64
 	n, err := strconv.ParseInt(os.Args[1], 10, 64)
 
 	if err != nil {
-		fmt.Println("Usage: primesplit <number>")
-		return
+		exit()
+	}
+
+	if n <= 0 {
+		exit()
 	}
 
 	if n == 1 {
@@ -49,12 +59,13 @@ func main() {
 	var ind = 0
 
 	fmt.Print(n, ": ")
+	c := color.New(color.Bold, color.FgBlue)
 
 	for ind < len(res) {
 		if res[ind][1] == 1 {
-			fmt.Print(res[ind][0])
+			c.Print(res[ind][0])
 		} else {
-			fmt.Print(res[ind][0], "^", res[ind][1])
+			c.Print(res[ind][0], "^", res[ind][1])
 		}
 
 		if ind+1 != len(res) {
