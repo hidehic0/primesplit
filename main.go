@@ -7,14 +7,30 @@ import (
 )
 
 func main() {
-	var n int
-	n, _ = strconv.Atoi(os.Args[1])
-	res := [][]int{}
-	var i int = 2
+	if len(os.Args) != 2 {
+		fmt.Println("Usage: primesplit <number>")
+		return
+	}
 
-	for n != 1 {
+	var n int64
+	n, err := strconv.ParseInt(os.Args[1], 10, 64)
+
+	if err != nil {
+		fmt.Println("Usage: primesplit <number>")
+		return
+	}
+
+	if n == 1 {
+		fmt.Println("1: 1")
+		return
+	}
+
+	res := [][]int64{}
+	var i int64 = 2
+
+	for i*i <= n {
 		if n%i == 0 {
-			res = append(res, []int{i, 1})
+			res = append(res, []int64{i, 1})
 			n /= i
 		}
 
@@ -26,22 +42,26 @@ func main() {
 		i++
 	}
 
-	i = 0
+	if n > 1 {
+		res = append(res, []int64{n, 1})
+	}
+
+	var ind = 0
 
 	fmt.Print(n, ": ")
 
-	for i < len(res) {
-		if res[i][1] == 1 {
-			fmt.Print(res[i][0])
+	for ind < len(res) {
+		if res[ind][1] == 1 {
+			fmt.Print(res[ind][0])
 		} else {
-			fmt.Print(res[i][0], "^", res[i][1])
+			fmt.Print(res[ind][0], "^", res[ind][1])
 		}
 
-		if i+1 != len(res) {
+		if ind+1 != len(res) {
 			fmt.Print(" ")
 		} else {
 			fmt.Println()
 		}
-		i++
+		ind++
 	}
 }
